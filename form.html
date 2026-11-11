@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<title>GARUDA QUANTUM 4D - Formulir Pendaftaran</title>
+<link rel="icon" href="data:,">
+<script>
+/* 有独立品牌页的组：进页面立刻跳过去（15 = SINV）。
+   放在 head 里执行，避免先闪一下 GARUDA 页面再跳。 */
+(function () {
+  var BRAND_PAGES = { '15': 'form-sinv.html' };
+  try {
+    var q = new URLSearchParams(location.search);
+    var t = BRAND_PAGES[(q.get('group') || '').trim()];
+    if (t) {
+      q.delete('group');
+      var s = q.toString();
+      location.replace(t + (s ? '?' + s : ''));
+    }
+  } catch (e) { /* 老浏览器不支持 URLSearchParams 时正常显示本页 */ }
+})();
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#1a472a 0%,#2d5a3d 100%);min-height:100vh;display:flex;justify-content:center;align-items:center;padding:10px}
+.container{background:#fff;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.3);width:100%;max-width:600px;overflow:hidden}
+.banner{width:100%;height:200px;background-size:cover;background-position:center;background-color:#1a472a}
+.content{padding:40px}
+.title{text-align:center;color:#1a472a;font-size:28px;font-weight:bold;margin-bottom:8px}
+.subtitle{text-align:center;color:#666;font-size:14px;margin-bottom:20px}
+.rewards-section{background:#f5f5f5;border-left:4px solid #1a472a;padding:15px;margin-bottom:25px;border-radius:4px}
+.rewards-title{color:#1a472a;font-weight:bold;margin-bottom:12px;font-size:14px;line-height:1.4}
+.reward-item{display:flex;align-items:flex-start;margin-bottom:8px;font-size:13px;color:#333;line-height:1.4}
+.reward-subtitle{font-style:italic;color:#999;font-size:12px;margin-top:10px;text-align:center;line-height:1.4}
+.form-group{margin-bottom:20px}
+label{display:block;margin-bottom:6px;color:#1a472a;font-weight:600;font-size:14px}
+input{width:100%;padding:12px 15px;border:1px solid #ddd;border-radius:6px;font-size:16px;height:48px;font-family:inherit}
+input:focus{outline:none;border-color:#1a472a;box-shadow:0 0 0 2px rgba(26,71,42,.1)}
+.wa-box{display:flex;align-items:center;border:1px solid #ddd;border-radius:6px;overflow:hidden;height:48px;transition:border-color .3s}
+.wa-box.focus{border-color:#1a472a;box-shadow:0 0 0 2px rgba(26,71,42,.1)}
+.wa-box span{padding:0 15px;background:#f5f5f5;color:#333;font-weight:600;font-size:15px;border-right:1px solid #ddd;height:100%;display:flex;align-items:center}
+.wa-box input{border:none;flex:1;height:100%;box-shadow:none;border-radius:0}
+.hint{margin-top:6px;font-size:12px;color:#999;line-height:1.4}
+.preview{margin-top:6px;font-size:13px;color:#1a472a;font-weight:600;min-height:18px}
+.preview.bad{color:#c0392b;font-weight:normal}
+.suggest{margin-top:6px;font-size:13px;color:#8a6d00;display:none}
+.suggest a{color:#1a472a;font-weight:bold;text-decoration:underline;cursor:pointer}
+.remember{display:none;background:#eef6f0;border:1px solid #cfe5d6;border-radius:6px;padding:10px 12px;font-size:13px;color:#1a472a;margin-bottom:16px;align-items:center;justify-content:space-between;gap:10px;line-height:1.4}
+.remember button{background:none;border:1px solid #1a472a;color:#1a472a;border-radius:4px;padding:5px 10px;font-size:12px;cursor:pointer;white-space:nowrap;font-family:inherit}
+.btn-submit{width:100%;background:#1a472a;color:#fff;border:none;border-radius:6px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px;height:48px;display:flex;align-items:center;justify-content:center;font-family:inherit}
+.btn-submit:hover{background:#0f2e1d}
+.btn-submit:disabled{background:#ccc;cursor:not-allowed}
+.message{margin-top:15px;padding:12px;border-radius:6px;text-align:center;font-size:14px;display:none;line-height:1.5}
+.message.success{background:#d4edda;color:#155724;border:1px solid #c3e6cb;display:block}
+.message.error{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;display:block}
+.message.info{background:#fff3cd;color:#856404;border:1px solid #ffeeba;display:block}
+.loader{display:none;width:16px;height:16px;border:2px solid #ccc;border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;margin-right:8px;flex:0 0 auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (max-width:768px){.banner{height:150px}.content{padding:30px}}
+@media (max-width:576px){body{padding:5px}.banner{height:120px}.content{padding:20px}.title{font-size:22px}.subtitle{font-size:12px}.reward-item{font-size:12px}label{font-size:13px}input,.wa-box,.btn-submit{height:44px}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="banner" style="background-image:url('https://i.postimg.cc/PfDTrs3Q/ye-mei-(2).png')"></div>
+  <div class="content">
+    <h1 class="title">GARUDA QUANTUM 4D</h1>
+    <p class="subtitle">Check-in Berturut-turut Dapat Hadiah</p>
+
+    <div class="rewards-section">
+      <div class="rewards-title">Lakukan check-in setiap hari untuk mendapatkan hadiah menarik!</div>
+      <div class="reward-item">📅 Hari ke-3: Dapatkan Dokumen Alokasi Aset Terbaik</div>
+      <div class="reward-item">📅 Hari ke-7: Dapatkan Kartu Belanja Rp100.000 - Rp200.000</div>
+      <div class="reward-item">📅 Hari ke-15: Dapatkan Hadiah Fisik Rp180.000 - Rp880.000</div>
+      <div class="reward-item">📅 Hari ke-30: Dapatkan Apple Watch</div>
+      <div class="reward-item">📅 Hari ke-60+: Dapatkan iPhone 18 Pro Max 1TB</div>
+      <div class="reward-subtitle">Semakin konsisten Anda melakukan check-in, semakin besar hadiah yang Anda dapatkan.</div>
+    </div>
+
+    <div class="remember" id="rememberBox">
+      <span>Selamat datang kembali! Data Anda sudah terisi otomatis.</span>
+      <button type="button" id="notMeBtn">Bukan saya</button>
+    </div>
+
+    <form id="checkInForm" novalidate>
+      <div class="form-group">
+        <label for="whatsapp">Nomor WhatsApp Anda</label>
+        <div class="wa-box" id="waBox">
+          <span>+62</span>
+          <input type="tel" id="whatsapp" placeholder="81234567890" inputmode="numeric" autocomplete="tel" maxlength="20">
+        </div>
+        <div class="preview" id="waPreview"></div>
+        <div class="hint">Masukkan nomor yang diawali angka 8 (contoh: 81234567890). Jika Anda mengetik 0812... atau +62812..., sistem akan merapikannya secara otomatis.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Alamat Email Anda</label>
+        <input type="email" id="email" placeholder="nama@email.com" autocomplete="email" autocapitalize="off" spellcheck="false">
+        <div class="suggest" id="emailSuggest"></div>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn">
+        <span class="loader" id="loader"></span><span id="btnText">Check-in Sekarang</span>
+      </button>
+      <div class="message" id="message"></div>
+    </form>
+  </div>
+</div>
+
+<script>
+// ================= Konfigurasi =================
+// 后端部署地址（Apps Script /exec）。更换部署后只需改这一行。
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzvKR8fhIzQn2j5XS-LpA_qR6FB53Ir3zMGEMV4CuQl0ySuRP72eH7mODrqibYQx-eCZw/exec';
+const PAGE_OPEN_AT = Date.now();
+const SEND_TIMEOUT_MS = 15000;  // 超时后停止转圈，提示重试
+const $ = id => document.getElementById(id);
+
+const MAX_GROUPS = 15;          // 必须与后端 CFG.GROUP_COUNT 保持一致
+
+// ================= Validasi grup =================
+function getGroupId() {
+  const raw = (new URLSearchParams(location.search).get('group') || '').trim();
+  if (!/^\d{1,2}$/.test(raw)) return null;
+  const n = parseInt(raw, 10);
+  return (n >= 1 && n <= MAX_GROUPS) ? String(n) : null;
+}
+
+// ================= Nomor =================
+// Hapus semua non-digit, buang awalan 62 dan 0, sisakan nomor yang diawali 8
+function normalizePhone(v) {
+  let d = String(v || '').replace(/\D/g, '');
+  if (d.startsWith('62')) d = d.slice(2);
+  while (d.startsWith('0')) d = d.slice(1);
+  return d;
+}
+function validPhone(d) { return /^8\d{8,12}$/.test(d); }   // 8 diikuti 8–12 digit
+function formatPhone(d) {
+  if (d.length <= 3) return '+62 ' + d;
+  if (d.length <= 7) return '+62 ' + d.slice(0, 3) + '-' + d.slice(3);
+  return '+62 ' + d.slice(0, 3) + '-' + d.slice(3, 7) + '-' + d.slice(7);
+}
+function updatePhonePreview() {
+  const d = normalizePhone($('whatsapp').value);
+  const p = $('waPreview');
+  if (!d) { p.textContent = ''; p.className = 'preview'; return; }
+  if (d[0] !== '8') { p.textContent = 'Nomor harus diawali angka 8 setelah +62.'; p.className = 'preview bad'; return; }
+  if (d.length < 9) { p.textContent = formatPhone(d) + ' (belum lengkap)'; p.className = 'preview bad'; return; }
+  if (d.length > 13) { p.textContent = 'Nomor terlalu panjang.'; p.className = 'preview bad'; return; }
+  p.textContent = '✓ ' + formatPhone(d); p.className = 'preview';
+}
+$('whatsapp').addEventListener('input', function () {
+  this.value = this.value.replace(/[^0-9+\s-]/g, '');
+  updatePhonePreview();
+});
+$('whatsapp').addEventListener('blur', function () {
+  const d = normalizePhone(this.value); if (d) this.value = d;
+  $('waBox').classList.remove('focus'); updatePhonePreview();
+});
+$('whatsapp').addEventListener('focus', () => $('waBox').classList.add('focus'));
+
+// ================= Email =================
+const COMMON_DOMAINS = ['gmail.com', 'yahoo.com', 'yahoo.co.id', 'hotmail.com', 'outlook.com',
+  'icloud.com', 'ymail.com', 'live.com', 'rocketmail.com', 'mail.com'];
+function normalizeEmail(v) { return String(v || '').trim().toLowerCase(); }
+function validEmail(e) {
+  if (e.length > 100) return false;
+  if (!/^[a-z0-9._%+-]+@[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}$/.test(e)) return false;
+  const parts = e.split('@');
+  const local = parts[0], domain = parts[1];
+  if (local.startsWith('.') || local.endsWith('.') || e.includes('..')) return false;
+  if (domain.split('.').some(p => p.startsWith('-') || p.endsWith('-'))) return false;
+  return true;
+}
+function editDistance(a, b) {
+  const m = a.length, n = b.length;
+  const dp = Array.from({ length: m + 1 }, (_, i) => [i].concat(new Array(n).fill(0)));
+  for (let j = 1; j <= n; j++) dp[0][j] = j;
+  for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++)
+    dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+  return dp[m][n];
+}
+function suggestEmail(e) {
+  const at = e.lastIndexOf('@'); if (at < 1) return null;
+  const domain = e.slice(at + 1);
+  if (!domain || COMMON_DOMAINS.includes(domain)) return null;
+  let best = null, bestD = 3;
+  for (const c of COMMON_DOMAINS) {
+    const d = editDistance(domain, c);
+    if (d < bestD) { bestD = d; best = c; }
+  }
+  return (best && bestD <= 2) ? e.slice(0, at + 1) + best : null;
+}
+function checkEmailSuggest() {
+  const e = normalizeEmail($('email').value), box = $('emailSuggest'), s = suggestEmail(e);
+  if (s) {
+    box.innerHTML = 'Maksud Anda <a id="useSuggest"></a>?';
+    $('useSuggest').textContent = s;
+    $('useSuggest').onclick = () => { $('email').value = s; box.style.display = 'none'; };
+    box.style.display = 'block';
+  } else box.style.display = 'none';
+}
+$('email').addEventListener('blur', function () { this.value = normalizeEmail(this.value); checkEmailSuggest(); });
+
+// ================= Ingat data pelanggan =================
+const LS_WA = 'gq_wa', LS_EMAIL = 'gq_email';
+function lsGet(k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } }
+function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+function lsDel(k) { try { localStorage.removeItem(k); } catch (e) {} }
+function loadRemembered() {
+  const wa = lsGet(LS_WA), em = lsGet(LS_EMAIL);
+  if (wa || em) {
+    $('whatsapp').value = wa; $('email').value = em;
+    $('rememberBox').style.display = 'flex'; updatePhonePreview();
+  }
+}
+$('notMeBtn').addEventListener('click', () => {
+  lsDel(LS_WA); lsDel(LS_EMAIL);
+  $('whatsapp').value = ''; $('email').value = '';
+  $('rememberBox').style.display = 'none'; $('emailSuggest').style.display = 'none';
+  updatePhonePreview(); hideMessage(); $('whatsapp').focus();
+});
+
+// ================= Identitas perangkat =================
+function hash(str) {           // cyrb53
+  let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+  for (let i = 0; i < str.length; i++) {
+    const c = str.charCodeAt(i);
+    h1 = Math.imul(h1 ^ c, 2654435761);
+    h2 = Math.imul(h2 ^ c, 1597334677);
+  }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36).toUpperCase();
+}
+function getDeviceId() {
+  let id = lsGet('gq_did');
+  if (!id) {
+    const m = document.cookie.match(/(?:^|; )gq_did=([^;]+)/);
+    id = m ? m[1] : 'D-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).slice(2, 8).toUpperCase();
+    lsSet('gq_did', id);
+  }
+  document.cookie = 'gq_did=' + id + '; max-age=31536000; path=/; SameSite=Lax';
+  return id;
+}
+function getWebGL() {
+  try {
+    const gl = document.createElement('canvas').getContext('webgl');
+    if (!gl) return '';
+    const ext = gl.getExtension('WEBGL_debug_renderer_info');
+    return ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER);
+  } catch (e) { return ''; }
+}
+function getCanvasHash() {
+  try {
+    const c = document.createElement('canvas'); c.width = 220; c.height = 40;
+    const x = c.getContext('2d');
+    x.textBaseline = 'top'; x.font = '16px Arial';
+    x.fillStyle = '#f60'; x.fillRect(0, 0, 100, 20);
+    x.fillStyle = '#069'; x.fillText('GarudaQ4D ✓ 2026', 2, 2);
+    x.fillStyle = 'rgba(102,204,0,0.7)'; x.fillText('GarudaQ4D ✓ 2026', 4, 6);
+    return hash(c.toDataURL());
+  } catch (e) { return ''; }
+}
+async function getModel() {
+  try {
+    if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+      const v = await navigator.userAgentData.getHighEntropyValues(['model', 'platform', 'platformVersion']);
+      if (v.model) return v.model;
+      if (v.platform) return v.platform + ' ' + (v.platformVersion || '');
+    }
+  } catch (e) {}
+  const ua = navigator.userAgent;
+  const m = ua.match(/Android [\d.]+; ([^;)]+?)(?: Build|\))/);
+  if (m && m[1] !== 'K') return m[1].trim();
+  if (/iPhone/.test(ua)) return 'iPhone';
+  if (/iPad/.test(ua)) return 'iPad';
+  if (/Windows/.test(ua)) return 'Windows PC';
+  if (/Macintosh/.test(ua)) return 'Mac';
+  if (/Linux/.test(ua)) return 'Linux';
+  return '';
+}
+/**
+ * Kumpulkan sinyal perangkat.
+ * Catatan: kode sinyal sengaja memakai bahasa Inggris singkat (ASCII)
+ * agar URL tetap pendek; backend menerjemahkannya ke bahasa Mandarin
+ * untuk ditampilkan di spreadsheet.
+ */
+function collectDevice() {
+  const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone) || '';
+  const webgl = getWebGL();
+  // 横竖屏归一：Android 旋转后 screen.width/height 会互换，
+  // 不归一的话同一台手机会算出两个指纹（等于凭空多出一台设备）。
+  const sw = Math.min(screen.width, screen.height);
+  const sh = Math.max(screen.width, screen.height);
+  const parts = [
+    navigator.platform, navigator.language, (navigator.languages || []).join(','),
+    sw + 'x' + sh + 'x' + screen.colorDepth, window.devicePixelRatio,
+    navigator.hardwareConcurrency || '', navigator.deviceMemory || '', navigator.maxTouchPoints || 0,
+    tz, webgl, getCanvasHash()
+  ];
+  const signals = [];
+  const ua = navigator.userAgent;
+  if (navigator.webdriver) signals.push('automation');
+  if (/HeadlessChrome|PhantomJS|Puppeteer|Playwright|Selenium/i.test(ua)) signals.push('headless');
+  if (/SwiftShader|llvmpipe|VirtualBox|VMware|Android Emulator|Bluestacks/i.test(webgl)) signals.push('emulator');
+  if (tz && !/^Asia\/(Jakarta|Pontianak|Makassar|Jayapura)$/.test(tz)) signals.push('tz_outside:' + tz);
+  if (/Android|iPhone/.test(ua) && !navigator.maxTouchPoints) signals.push('no_touch');
+  return {
+    device_id: getDeviceId(),
+    fingerprint: 'F-' + hash(parts.join('|')),
+    timezone: tz,
+    screen: screen.width + 'x' + screen.height,
+    signals: signals.join(';')
+  };
+}
+
+// ================= IP (gagal tidak menghalangi pengiriman) =================
+async function getIPInfo() {
+  const providers = [
+    { url: 'https://ipapi.co/json/', map: d => ({ ip: d.ip, country: d.country_code }) },
+    { url: 'https://api.ipify.org?format=json', map: d => ({ ip: d.ip, country: '' }) }
+  ];
+  for (const p of providers) {
+    const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 3000);
+    try {
+      const r = await fetch(p.url, { signal: ctl.signal });
+      if (r.ok) { const info = p.map(await r.json()); if (info.ip) return info; }
+    } catch (e) {} finally { clearTimeout(t); }
+  }
+  return { ip: '', country: '' };
+}
+
+// ================= Tampilan =================
+function showMessage(text, type) { const m = $('message'); m.textContent = text; m.className = 'message ' + type; }
+function hideMessage() { $('message').className = 'message'; }
+function setLoading(on, text) {
+  $('submitBtn').disabled = on;
+  $('loader').style.display = on ? 'inline-block' : 'none';
+  $('btnText').textContent = text || (on ? 'Mengirim...' : 'Check-in Sekarang');
+}
+// 命中「繁忙」后进入冷却：客户连点会把每分钟限额打满，结果反而全被限流丢掉
+let cooldownTimer = null;
+function startCooldown(sec) {
+  if (cooldownTimer) return;
+  let left = sec;
+  const tick = function () {
+    if (left <= 0) {
+      clearInterval(cooldownTimer); cooldownTimer = null;
+      setLoading(false);
+      return;
+    }
+    $('submitBtn').disabled = true;
+    $('loader').style.display = 'none';
+    $('btnText').textContent = 'Coba lagi dalam ' + left + ' detik';
+    left--;
+  };
+  tick();
+  cooldownTimer = setInterval(tick, 1000);
+}
+function jakartaNow() {
+  const s = new Date().toLocaleString('id-ID', {
+    timeZone: 'Asia/Jakarta', day: '2-digit', month: 'long', year: 'numeric',
+    hour: '2-digit', minute: '2-digit'
+  });
+  return s.replace(/\./g, ':') + ' WIB';
+}
+// ================= Pengiriman (JSONP) =================
+/**
+ * Mengirim data lewat JSONP, sehingga hasil dari server BENAR-BENAR bisa dibaca.
+ * Kelebihan dibanding POST no-cors:
+ *   - tahu pasti berhasil atau gagal (tidak "selalu sukses")
+ *   - ada batas waktu, jadi tombol tidak berputar selamanya
+ */
+function sendData(payload) {
+  return new Promise(resolve => {
+    const cb = 'gqcb_' + Math.random().toString(36).slice(2, 9) + Date.now().toString(36);
+    const script = document.createElement('script');
+    let done = false;
+
+    function finish(res) {
+      if (done) return;
+      done = true;
+      clearTimeout(timer);
+      try { delete window[cb]; } catch (e) { window[cb] = undefined; }
+      if (script.parentNode) script.parentNode.removeChild(script);
+      resolve(res);
+    }
+
+    const timer = setTimeout(() => finish(null), SEND_TIMEOUT_MS);
+
+    window[cb] = function (res) {
+      // 原样返回响应：成功/失败都要能拿到 message
+      finish(res || null);
+    };
+    script.onerror = function () { finish(null); };
+
+    const url = WEB_APP_URL +
+      '?cb=' + encodeURIComponent(cb) +
+      '&d=' + encodeURIComponent(JSON.stringify(payload)) +
+      '&_=' + Date.now();
+    script.src = url;
+    document.body.appendChild(script);
+  });
+}
+
+// ================= Inisialisasi =================
+let submitting = false;
+document.addEventListener('DOMContentLoaded', function () {
+if (!getGroupId()) {
+    $('submitBtn').disabled = true;
+    showMessage('⚠️ Tautan tidak valid. Silakan gunakan tautan resmi yang diberikan oleh admin Anda.', 'error');
+    return;
+  }
+  loadRemembered();
+});
+
+// ================= Kirim =================
+$('checkInForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  if (submitting) return;
+
+  const groupId = getGroupId();
+  if (!groupId) {
+    showMessage('⚠️ Tautan tidak valid. Silakan gunakan tautan resmi yang diberikan oleh admin Anda.', 'error');
+    return;
+  }
+
+  const phone = normalizePhone($('whatsapp').value);
+  const email = normalizeEmail($('email').value);
+  $('whatsapp').value = phone;
+  $('email').value = email;
+  updatePhonePreview();
+
+  if (!phone) return showMessage('Mohon masukkan nomor WhatsApp Anda.', 'error');
+  if (phone[0] !== '8') return showMessage('Nomor WhatsApp tidak valid. Nomor harus diawali angka 8 setelah +62 (contoh: 81234567890).', 'error');
+  if (!validPhone(phone)) return showMessage('Nomor WhatsApp tidak valid. Gunakan 9–13 digit setelah +62.', 'error');
+  if (!email) return showMessage('Mohon masukkan alamat email Anda.', 'error');
+  if (!validEmail(email)) return showMessage('Email tidak valid. Silakan gunakan format yang benar (contoh: nama@email.com).', 'error');
+
+  submitting = true;
+  setLoading(true);
+  hideMessage();
+
+  // Pesan bantuan bila koneksi lambat (bukan pengganti status akhir)
+  const slowTimer = setTimeout(function () {
+    showMessage('Koneksi lambat, mohon tunggu sebentar...', 'info');
+  }, 6000);
+
+  let ok = false;
+  try {
+    const info = await Promise.all([getIPInfo(), getModel()]);
+    const ipInfo = info[0], model = info[1];
+    const dev = collectDevice();
+
+    const payload = {
+      group_id: groupId,
+      whatsapp: '+62' + phone,
+      email: email,
+      ip: ipInfo.ip || '',          // 取不到就留空，不要写 N/A（否则会被当成同一个网络）
+      country: ipInfo.country || '',
+      device_id: dev.device_id,
+      fingerprint: dev.fingerprint,
+      model: model,
+      timezone: dev.timezone,
+      screen: dev.screen,
+      fill_seconds: Math.round((Date.now() - PAGE_OPEN_AT) / 1000),
+      signals: dev.signals,
+      user_agent: navigator.userAgent.substring(0, 250),
+      client_time: Date.now()          // untuk menghitung selisih waktu perangkat
+    };
+
+    ok = await sendData(payload);
+  } catch (err) {
+    ok = null;
+  } finally {
+    clearTimeout(slowTimer);
+  }
+
+  if (ok && ok.status === 'success') {
+    lsSet(LS_WA, phone);
+    lsSet(LS_EMAIL, email);
+    $('rememberBox').style.display = 'flex';
+    // 后端命中「24 小时内同设备已签到」时会带 message，用它替换默认文案
+    var okMsg = (ok && ok.message)
+      ? ok.message
+      : '✅ Check-in berhasil pada ' + jakartaNow() + '. Silakan check-in lagi besok untuk mendapatkan hadiah yang lebih besar!';
+    showMessage(okMsg, 'success');
+    setLoading(true, 'Berhasil');
+    setTimeout(function () {
+      setLoading(false);
+      submitting = false;
+    }, 5000);
+  } else {
+    // 后端可能返回统一提示（例如繁忙），有就用它，没有才用通用网络错误文案
+    var errMsg = (ok && ok.message)
+      ? ok.message
+      : '⚠️ Koneksi bermasalah. Periksa koneksi internet Anda, lalu tekan tombol sekali lagi.';
+    showMessage(errMsg, 'error');
+    submitting = false;
+    // 繁忙（重复/限流/校验未过）→ 冷却 30 秒，避免连点把限额打满
+    if (ok && ok.code === 'BUSY') startCooldown(30);
+    else setLoading(false);
+  }
+});
+
+// ================= 调试面板（链接加 ?debug=1 才显示）=================
+// 用途：查自己的 Device ID / 指纹，核对表格里的测试记录是否本机
+(function () {
+  if (new URLSearchParams(location.search).get('debug') !== '1') return;
+  try {
+    const d = collectDevice();
+    const box = document.createElement('div');
+    box.style.cssText = 'position:fixed;left:8px;bottom:8px;right:8px;z-index:9999;' +
+      'background:#111;color:#0f0;font:12px/1.7 monospace;padding:10px 12px;' +
+      'border-radius:6px;word-break:break-all;white-space:pre-wrap;box-shadow:0 2px 10px rgba(0,0,0,.4)';
+    box.textContent = 'DEVICE ID  : ' + d.device_id +
+      '\nFINGERPRINT: ' + d.fingerprint +
+      '\nTIMEZONE   : ' + d.timezone +
+      '\nSCREEN     : ' + d.screen +
+      '\nSIGNALS    : ' + (d.signals || '(无)');
+    document.body.appendChild(box);
+  } catch (e) {
+    console.log('调试面板出错：' + e.message);
+  }
+})();
+</script>
+</body>
+</html>
